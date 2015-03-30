@@ -76,5 +76,7 @@ public class FetchWeatherTask extends AsyncTask<URL, Integer, String>
                 }
             }
         }
+        return forecastJsonStr;
     }
+
 }
