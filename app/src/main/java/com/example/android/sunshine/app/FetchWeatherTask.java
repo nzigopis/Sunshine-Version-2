@@ -15,6 +15,18 @@ import java.net.URL;
  */
 public class FetchWeatherTask extends AsyncTask<Double, Integer, String>
 {
+    IWeatherForecastDataListener _listener;
+
+    public FetchWeatherTask(IWeatherForecastDataListener listener) {
+        _listener = listener;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (_listener != null && result != null)
+            _listener.Update(result);
+    }
+
     @Override
     protected String doInBackground(Double... params)
     {
@@ -26,13 +38,20 @@ public class FetchWeatherTask extends AsyncTask<Double, Integer, String>
         // Will contain the raw JSON response as a string.
         String forecastJsonStr = null;
 
+        if (params == null || params.length == 0)
+            return forecastJsonStr;
+
         try {
             // Construct the URL for the OpenWeatherMap query
             // Possible parameters are avaiable at OWM's forecast API page, at
             // http://openweathermap.org/API#forecast
+<<<<<<< HEAD
             // lat=40.6400629, lon=22.9444191
             URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + params[0] +
                     "&lon=" + params[1] + "&mode=json&units=metric&cnt=7");
+=======
+            URL url = params[0];
+>>>>>>> cdee05a33e986d1abb73f245cedd072546bd260d
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
