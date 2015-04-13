@@ -13,10 +13,10 @@ import java.net.URL;
 /**
  * Created by nzigopis on 29/03/2015.
  */
-public class FetchWeatherTask extends AsyncTask<URL, Integer, String>
+public class FetchWeatherTask extends AsyncTask<Double, Integer, String>
 {
     @Override
-    protected String doInBackground(URL... params)
+    protected String doInBackground(Double... params)
     {
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
@@ -30,7 +30,9 @@ public class FetchWeatherTask extends AsyncTask<URL, Integer, String>
             // Construct the URL for the OpenWeatherMap query
             // Possible parameters are avaiable at OWM's forecast API page, at
             // http://openweathermap.org/API#forecast
-            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=40.6400629&lon=22.9444191&mode=json&units=metric&cnt=7");
+            // lat=40.6400629, lon=22.9444191
+            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + params[0] +
+                    "&lon=" + params[1] + "&mode=json&units=metric&cnt=7");
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
