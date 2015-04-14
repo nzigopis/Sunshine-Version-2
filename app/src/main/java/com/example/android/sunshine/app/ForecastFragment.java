@@ -65,7 +65,7 @@ public class ForecastFragment extends Fragment
             }
         });
 
-        weatherTask.execute(url);
+        weatherTask.execute(40.6400629, 22.9444191);
 
 
         return rootView;
